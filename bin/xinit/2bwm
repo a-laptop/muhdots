@@ -1,0 +1,12 @@
+xsetroot -cursor_name left_ptr
+setxkbmap -option caps:escape
+numlockx 
+xrdb .Xcolours
+walls.sh &
+sxhkd -c ~/.config/sxhkd/2bwm &
+bitbar &
+#akbar &
+unclutter --fork|-b
+compton &
+while :; do ~/bin/popups/batterypopup ; sleep 120; done &
+exec 2bwm

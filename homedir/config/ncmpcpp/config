@@ -1,0 +1,26 @@
+# ncmpcpp
+
+# Directory
+lyrics_directory = /home/a/.config/ncmpcpp/lyrics
+ncmpcpp_directory = /home/a/.config/ncmpcpp
+
+# Progress Bar
+progressbar_boldness = no
+progressbar_color = black
+progressbar_elapsed_color = white
+progressbar_look = ──
+
+# Scrolling
+cyclic_scrolling = yes
+lines_scrolled = 1
+mouse_list_scroll_whole_page = no
+
+# Statusbar
+now_playing_prefix = "$5> "
+#song_columns_list_format = "(7f)[white]{l} (30)[magenta]{b}$R(20)[blue]{t} (7f)[white]{n}"
+song_columns_list_format = (7f)[white]{n} (50)[magenta]{t} (20)[blue]{b} (7f)[white]{lr}
+
+# Visibility
+header_visibility = no
+statusbar_visibility = no 
+titles_visibility = no

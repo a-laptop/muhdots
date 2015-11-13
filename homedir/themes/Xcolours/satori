@@ -1,0 +1,67 @@
+! satori 
+
+! Colours
+	! special
+*.foreground:   #839496
+*.background:   #09090d
+*.cursorColor:  #839496
+
+	! black
+*.color0:       #353540
+*.color8:       #545466
+
+	! red
+*.color1:       #8c5760
+*.color9:       #b26f7a
+
+	! green
+*.color2:       #9db270
+*.color10:      #7b8c58
+
+	! yellow
+*.color3:       #8c6e43
+*.color11:      #b28c55
+
+	! blue
+*.color4:       #58698c
+*.color12:      #7086b2
+
+	! magenta
+*.color5:       #7b5e7d
+*.color13:      #9c77b2
+
+	! cyan
+*.color6:       #66808c
+*.color14:      #82a2b2
+
+	! white
+*.color7:       #8c8b8b
+*.color15:      #b8b8c8
+
+! Scrollbar - rxvt (default), plain (most compact), next, or xterm
+!URxvt.scrollstyle: plain
+	! Hide
+URxvt.scrollBar: false
+
+! Ctrl-Arrow skipping or bs readline shit
+URxvt.keysym.Control-Left: \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
+
+! Fonts
+	! Xft
+! *font: xft:Inconsolatazi4:medium:size=12
+! *boldFont: xft:Inconsolatazi4:bold:size=12
+! *italicFont: xft:Inconsolatazi4:italic:size=12
+! *boldItalicFont: xft:Inconsolatazi4:bold:italic:size=12
+	! Bitmap
+*font:-lucy-tewi-medium-*-normal--11-90-75-75-m-60-iso10646-1
+*boldFont:-lucy-tewi-bold-r-normal--11-90-75-75-m-60-iso10646-1
+
+! HiDPI Test
+Xft.dpi: 96
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb

@@ -1,0 +1,18 @@
+#!/bin/sh
+# an X starter
+
+session=${1:-openbox}
+
+case $session in
+	2bwm)		WM="2bwm" 		;;
+	bspwm)		WM="bspwm" 		;;	
+	herb)		WM="herb" 		;;
+	openbox)  	WM="openbox"	;;
+	wmutils)  	WM="wmutils" 	;;
+	xfce)		WM="xfce"		;;
+	*) 			WM="openbox" 	;;
+esac
+
+rm ~/.xinitrc;
+cp ~/bin/xinit/$WM ~/.xinitrc;
+startx

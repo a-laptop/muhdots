@@ -1,0 +1,14 @@
+#!/bin/bash
+# goto next workspace
+
+# Variables
+WkNum=$(xprop -root _NET_CURRENT_DESKTOP | sed -e 's/_NET_CURRENT_DESKTOP(CARDINAL) = //')
+NxtWkNum=$(expr $WkNum + 1)
+
+# Run
+if [ $NxtWkNum = 5 ]
+then 
+	wmctrl -s 0
+else
+	wmctrl -s $NxtWkNum
+fi

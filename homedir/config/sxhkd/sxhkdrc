@@ -1,0 +1,131 @@
+# bspwm
+
+alt + Tab
+	{bspc config top_padding 20; bitbar & ,\
+	pkill bitbar; bspc config top_padding 0 }
+super + shift + e
+	pkill walls.sh ; bspc quit
+super + Escape
+	pkill -USR1 -x sxhkd
+super + shift + q
+	bspc window -c
+super + b
+	bspc desktop -B
+super + {s,f}
+	bspc window -t {floating,fullscreen}
+super + shift + s
+	bspc desktop -t floating
+super + apostrophe
+	bspc window -s last
+super + {c, shift + c}
+	bspc desktop -C {forward,backward}
+
+# Floating
+	# Move
+alt + super + {h, j, k, l}
+	wmv {-80 0, 0 80, 0 -80, 80 0} $(pfw)
+alt + {h, j, k, l}
+	wmv {-20 0, 0 20, 0 -20, 20 0} $(pfw)
+alt + ctrl + {h, j, k, l}
+	wmv {-40 0, 0 40, 0 -40, 40 0} $(pfw)
+alt + {y, u, b, n, g, space, shift + space, ctrl + space}
+	corner {tl,tr,bl,br,md, cnv, cnh, cnq} $(pfw)
+
+# Focus
+super + {_, shift + }{h,j,k,l}
+	bspc window -{f,s} {left,down,up,right}
+super + {Tab, shift + Tab}
+	bspc window -f {next,prev}
+
+# Workspaces
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,window -d} ^{1-9,10}
+super + bracket{left,right}
+	bspc desktop -f {prev,next}
+super + shift + bracket{left,right}
+	bspc window -d {prev,next}
+
+# Resize
+	# 16:9 resize
+alt + shift + super + {h,  l}
+    wrs {-32 -18, 32 18} $(pfw)
+alt + shift + {h, j, k, l}
+	wrs {-40 0, 0 40, 0 -40, 40 0} $(pfw)
+alt + shift + ctrl + {h, j, k, l}
+	wrs {-20 0, 0 20, 0 -20, 20 0} $(pfw)
+super + space
+	midv $(pfw)
+super + shift + space
+	midh $(pfw)
+super + m
+	maxv $(pfw)
+super + shift + m
+	maxh $(pfw)
+
+# Tiling
+super + ctrl + {h,j,k,l}
+	bspc window -p {left,down,up,right}
+super + ctrl + {_,shift + }space
+	bspc {window -p cancel,desktop -c}
+super + ctrl + {1-9}
+	bspc window -r 0.{1-9}
+	# Resize
+ctrl + shift +  {h,j,k,l}
+	bspc window -e {left -20,down +20,up -20,right +20}
+ctrl + shift + super + {h,j,k,l}
+	bspc window -e {right -20,up +20,down -20,left +20}
+
+# Mouse
+~button1
+	bspc pointer -g focus
+super + button{1-3}
+	bspc pointer -g {move,resize_side,resize_corner}
+super + !button{1-3}
+   bspc pointer -t %i %i
+super + @button{1-3}
+	bspc pointer -u
+
+# Independent
+	# Media Keys
+F6
+	mpc toggle ; muspop
+super + F6
+	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+ctrl + F6
+	muspop
+alt + F6
+	albumart.sh
+ctrl + alt + x
+	mpv $(xsel -b)
+
+	# Audio
+F2
+	amixer set Master toggle ; volpop	
+F3
+	amixer set Master 5%+ ; volpop
+F7
+	amixer set Master 5%- ; volpop
+
+	# Launch
+super + Return
+	urxvt
+super + d
+	j4-dmenu-desktop --dmenu="dmenu -q -i -h 24 -fn 'Inconsolatazi4-10' -nb '#09090d' -nf '#ffffff' -sb '#c5c8c6' -sf '#09090d'" --term="urxvt"
+alt + d
+	dmenu_run -z -h 24 -fn 'Inconsolatazi4-10' -nb '#09090d'  -nf '#ffffff' -sb '#c5c8c6' -sf '#09090d'
+super + e
+	pcmanfm
+super + w
+    qutebrowser
+ctrl + super + shift + alt + l
+	lock.sh
+F4
+	menu.sh
+
+	# Battery
+alt + F7
+	batpop
+
+	# Date / Time
+ctrl + F7
+	datpop

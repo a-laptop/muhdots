@@ -1,0 +1,14 @@
+#!/bin/bash
+# goto previous workspace
+
+# Variables
+WkNum=$(xprop -root _NET_CURRENT_DESKTOP | sed -e 's/_NET_CURRENT_DESKTOP(CARDINAL) = //')
+PrevWkNum=$(expr $WkNum - 1)
+
+# Run
+if [ $PrevWkNum = -1 ]
+then 
+	wmctrl -s 4
+else
+	wmctrl -s $PrevWkNum
+fi

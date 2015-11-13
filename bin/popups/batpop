@@ -1,0 +1,21 @@
+#!/bin/bash
+# a battery popup
+
+# Variables
+. $HOME/bin/colr
+BATT_LEVEL=$(acpi -b | grep -o '[[:digit:]]\+%' | sed 's/%//')
+
+# Run
+	if [ $BATT_LEVEL -ge 50 ]
+		then
+			popupright $(echo "%{B#$green}  $BATT_LEVEL% %{B-}")
+	fi	
+	if [ $BATT_LEVEL -ge 20 -a $BATT_LEVEL -lt 50 ]
+		then
+			popupright $(echo -e "%{B#$yellow}  $BATT_LEVEL% %{B-}")
+	fi
+
+	if [ $BATT_LEVEL -lt 20 ]
+		then
+			popupright $(echo -e "%{B#$red}  $BATT_LEVEL% %{B-}")
+	fi

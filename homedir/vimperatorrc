@@ -1,0 +1,17 @@
+" Back and Forward
+map J <C-n>
+map K <C-p>
+
+" Quickmarks like ranger
+map "'" go
+let mapleader = """
+map <Leader> gn
+map m M
+
+" Open editor
+inoremap <C-e> <C-i>
+
+" Hints at homerow
+set hintchars=hjklasdfg
+
+" homepage url: https://duckduckgo.com/?q=&kae=%232f343b

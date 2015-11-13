@@ -1,0 +1,34 @@
+#! /bin/bash
+# colr
+# dkeg 2015
+
+colours() {
+    bg=$(xrdb -query | grep "background" | cut -d '#' -f2)
+    fg=$(xrdb -query | grep "foreground" | cut -d '#' -f2)
+    black=$(xrdb -query | grep "*.color0:" | cut -d '#' -f2)
+    red=$(xrdb -query | grep "*.color1:" | cut -d '#' -f2)
+    green=$(xrdb -query | grep "*.color2:" | cut -d '#' -f2)
+    yellow=$(xrdb -query | grep "*.color3:" | cut -d '#' -f2)
+    blue=$(xrdb -query | grep "*.color4:" | cut -d '#' -f2)
+    magenta=$(xrdb -query | grep "*.color5:" | cut -d '#' -f2)
+    cyan=$(xrdb -query | grep "*.color6:" | cut -d '#' -f2)
+    white=$(xrdb -query | grep "*.color7:" | cut -d '#' -f2)
+    bblack=$(xrdb -query | grep "*.color8:" | cut -d '#' -f2)
+    bred=$(xrdb -query | grep "*.color9:" | cut -d '#' -f2)
+    bgreen=$(xrdb -query | grep "*.color10:" | cut -d '#' -f2)
+    byellow=$(xrdb -query | grep "*.color11:" | cut -d '#' -f2)
+    bblue=$(xrdb -query | grep "*.color12:" | cut -d '#' -f2)
+    bmagenta=$(xrdb -query | grep "*.color13:" | cut -d '#' -f2)
+    bcyan=$(xrdb -query | grep "*.color14:" | cut -d '#' -f2)
+    bwhite=$(xrdb -query | grep "*.color15:" | cut -d '#' -f2)
+    purewhite=ffffff
+    purered=ef3340
+  }
+fonts() {
+    fnt=$(xrdb -query | grep "*font" | awk '{$1="";print}'|cut -d ',' -f1)
+    panelfnt=-gohu-gohufont-medium-r-normal--11-80-100-100-c-60-iso10646-1
+	ogfnt=-gohu-gohufont-medium-r-normal--14-*-*-*-*-*-iso10646-1
+    iconfnt=-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1
+}
+colours
+fonts

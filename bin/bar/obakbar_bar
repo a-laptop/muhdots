@@ -1,0 +1,51 @@
+#! /bin/sh
+#
+# Example panel for LemonBoy's bar
+
+. obakbar_colours
+
+#num_mon=$(bspc query -M | wc -l)
+Padding=" "
+
+while read -r line ; do
+	case $line in
+		Z*)	# Workspace Number (openbox, 2bwm etc.) Output
+			wkspace="%{A4:prevwkspace:}%{A5:nxtwkspace:}%{F$WFfg)}%{B$WFbg}$Padding${line#?}$Padding%{B-}%{F-}%{A}%{A}"
+			;;
+		D*)
+			# Date Output
+			date=" $Padding${line#?}$Padding"
+			;;
+		M*)
+			# MPD Output
+			music="%{A:albumart.sh:}%{A2:urxvt -e ncmpcpp -c ~/.config/ncmpcpp/config:}${line#?}%{A}%{A}"
+			;;
+		C*)
+			# Clock Output
+			clock="$Padding${line#?}$Padding"
+			;;
+		B*)
+			# Battery Output
+			battery="${line#?}"
+			;;
+		T*)
+			# Xtitle Output
+			title="${line#?}$Padding$Padding"
+			;;
+
+		V*)
+			# Alsa Volume
+			volume="%{A3:amixer set Master toggle:}%{A4:amixer set Master 5%+:}%{A5:amixer set Master 5%-:}%{B$SDbg}$Padding${line#?}$Padding%{B-}%{A}%{A}%{A}"
+			;;
+		W*)
+			# Wifi Link
+			wifi="$Padding${line#?}$Padding"
+			;;
+		L*)
+			# Lock
+			lock="%{A3:lock.sh:}$Padding${line#?}$Padding%{A}"
+			;;
+		
+	esac
+	printf "%s\n" "%{l}${wkspace}${wm_infos}${music}%{c}%{r}${wifi}${volume}${battery}${date}${clock}${lock}"
+done

@@ -1,0 +1,82 @@
+<openbox_menu>
+		<menu id="p-menu" label="p">
+			<item label="gthumb">
+				<action name="Execute">
+					<command>gthumb</command>
+				</action>
+			</item>
+			<item label="kodi">
+				<action name="Execute">
+					<command>kodi</command>
+				</action>
+			</item>
+			<item label="pimg">
+				<action name="Execute">
+					<command>pimg.sh</command>
+				</action>
+			</item>
+			<item label="pranger">
+				<action name="Execute">
+					<command>urxvt -e ranger /mnt/aktorrents</command>
+				</action>
+			</item>
+		</menu>
+
+		<menu id="fun-menu" label="fun">
+			<item label="mcomix">
+				<action name="Execute">
+					<command>mcomix</command>
+				</action>
+			</item>
+			<item label="exfalso">
+				<action name="Execute">
+					<command>exfalso</command>
+				</action>
+			</item>
+			<item label="quodlibet">
+				<action name="Execute">
+					<command>quodlibet</command>
+				</action>
+			</item>
+		</menu>
+
+		<menu id="root-menu" label="ogmenu">
+			<item label="qutebrowser">
+				<action name="Execute">
+					<command>qutebrowser</command>
+				</action>
+			</item>
+			<item label="pcmanfm" label="pcmanfm">
+				<action name="Execute">
+					<command>pcmanfm</command>
+				</action>
+			</item>
+            <item label="tmux">
+                <action name="Execute">
+                    <command>urxvt -e tmux attach-session</command>
+                </action>
+            </item>
+			<item label="url | mpv">
+				<action name="Execute">
+						<command>mpv $(xsel -b)</command>
+				</action>
+			</item>
+			<item label="htop">
+				<action name="Execute">
+						<command>urxvt -e htop</command>
+				</action>
+			</item>
+			<menu id="fun-menu"/>
+			<menu id="p-menu"/>
+			<item label="lock.sh">
+				<action name="Execute">
+					<command>lock.sh</command>
+				</action>
+			</item>
+			<item label="logout">
+				<action name="Exit">
+					<prompt>yes</prompt>
+				</action>
+			</item>
+		</menu>
+</openbox_menu>	

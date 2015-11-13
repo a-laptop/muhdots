@@ -1,0 +1,48 @@
+#
+# wm independent hotkeys
+#
+
+alt + Tab
+	{bitbar & ,\
+	pkill bitbar}
+super + Return
+	urxvt
+
+super + grave
+	drawterm
+
+super + d
+	j4-dmenu-desktop --dmenu="dmenu -q -i -h 24 -fn 'Inconsolatazi4-10' -nb '#09090d' -nf '#ffffff' -sb '#c5c8c6' -sf '#09090d'" --term="urxvt"
+
+alt + d
+        dmenu_run -z -h 24 -fn 'Inconsolatazi4-10' -nb '#09090d'  -nf '#ffffff' -sb '#c5c8c6' -sf '#09090d'
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd -c ~/.config/sxhkd/nonbspwmsxhkdrc
+
+#Media Keys
+F6
+	mpc toggle ; musicpopup
+alt + F6
+	musicpopup
+#Alsa
+F2
+	amixer set Master toggle ; volumepopup 
+F3
+	amixer set Master 5%+ ; volumepopup
+F7
+	amixer set Master 5%- ; volumepopup
+#Pulse
+#F2
+#	amixer set -D pulse Master toggle
+#F3
+#	amixer set -D pulse Master 5%+
+#F7
+#	amixer set -D pulse Master 5%-
+
+#Mine
+super + e
+	thunar
+ctrl + super + l
+	lock.sh

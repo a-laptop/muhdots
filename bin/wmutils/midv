@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+# z3bra - 2014 (c) wtfpl
+# toggle the fullscreen state of a window
+CUR=${2:-$(pfw)}
+BW=$(wattr b $CUR)
+
+ROOT=$(lsw -r)
+SW=$(wattr w $ROOT)
+SH=$(wattr h $ROOT)
+
+W=800
+H=950
+
+X=$((SW/2 - W/2 - BW))
+Y=$((SH/2 - H/2 - BW))
+
+# this file is used to store the previous geometry of a window
+midvfile=${midvfile:-/tmp/wmumidv}
+
+# it's pretty simple, but anyway...
+usage() {
+    echo "usage: $(basename $0) <wid>"
+    exit 1
+}
+
+# exit if no argument given
+test -z "$1" && usage
+
+# this will unset the fullscreen state of any fullscreen window if there is one.
+# this way, there will only be one window in fullscreen at a time, and no window
+# will loose their previous geometry info
+test -f $midvfile && wtp $(cat $midvfile)
+
+# if file exist and contain our window id, it means that out window is in
+# fullscreen mode
+if test -f $midvfile && grep -q $1 $midvfile; then
+    # if the window we removed was our window, delete the file, so we can
+    # fullscreen it again later 
+    rm -f $midvfile
+
+else
+    # if not, then put the current window in fullscreen mode, after saving its
+    # geometry and id to $FSFILE we also remove any border from this window.
+    wattr xywhi $1 > $midvfile
+    wtp $X $Y $W $H $1
+    chwb -s 0 $1
+fi
+
+# now focus the window, and put it in front, no matter which state we're in, and
+# put the cursor on its bottom-right corner (for consistency)
+vroum $1
+wmp -a $(wattr xy $1)
+wmp -r $(wattr wh $1)

@@ -1,0 +1,25 @@
+#!/bin/bash
+# an image viewer
+
+shopt -s nullglob
+
+if [[ ! -f $1 ]]; then
+		echo "$0: first argument is not a file" >&2
+			exit 1
+		fi
+
+		file=$(basename -- "$1")
+		dir=$(dirname -- "$1")
+		arr=()
+		shift
+
+		cd -- "$dir"
+
+		for i in *; do
+				[[ -f $i ]] || continue
+					arr+=("$i")
+						[[ $i == $file ]] && c=$((${#arr[@]} - 1))
+					done
+
+					exec feh --draw-tinted -g 480x640 --image-bg black --slideshow-delay -5 -Z "$@" -- "${arr[@]:c}" "${arr[@]:0:c}"
+

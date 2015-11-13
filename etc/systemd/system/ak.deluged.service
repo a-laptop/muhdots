@@ -1,0 +1,13 @@
+[Unit]
+Description=Deluge Daemon
+After=mnt-aktorrents.mount
+Requires=mnt-aktorrents.mount
+
+[Service]
+User=a
+ExecStart=/usr/bin/deluged -d
+UMask=007
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+qutebrowser
+pcmanfm
+tmux :urxvt -e tmux attach-session
+url | mpv :mpv $(xsel -b)
+htop :urxvt -e htop
+gthumb
+lock.sh
+pimg :pimg.sh
+pranger :urxvt -e ranger vids/porn
+close :pkill 9menu

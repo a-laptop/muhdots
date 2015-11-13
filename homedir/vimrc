@@ -1,0 +1,65 @@
+" vim
+
+" Key Mapping
+let mapleader =","
+nmap <Leader>n :set invnumber<CR>
+nmap <Leader>u :set invcursorline<CR>
+nmap <Leader>g :Goyo<CR>
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Writing
+syntax on
+set mouse=a
+set cursorline                                                  
+set wildmenu
+set wildmode=list:longest,full
+set timeoutlen=1000 ttimeoutlen=0                " Fast <Esc>
+set number                                       "LineNumbers
+set backspace=2
+set tabstop=4                                    "TabWidth
+"set expandtab
+
+" Search / Highlights
+set hlsearch
+set ignorecase
+set incsearch
+set scrolloff=5
+
+" Colours
+set background=light
+
+" Plugins
+call plug#begin('~/.vim/plugged')
+	Plug 'altercation/vim-colors-solarized'
+    Plug 'junegunn/goyo.vim'
+call plug#end()
+
+	" Gvim only
+if has('gui_running') 
+		colorscheme solarized 
+endif
+
+	" Goyo
+let g:goyo_width=100
+let g:goyo_height=100
+let g:goyo_linenr=0
+function! s:goyo_enter()
+  let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+endfunction
+
+function! s:goyo_leave()
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    if b:quitting_bang
+      qa!
+    else
+      qa
+    endif
+  endif
+endfunction
+
+autocmd User GoyoEnter call <SID>goyo_enter()
+autocmd User GoyoLeave call <SID>goyo_leave()

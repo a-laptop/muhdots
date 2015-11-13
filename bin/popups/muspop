@@ -1,0 +1,17 @@
+#!/bin/bash
+# a musicpopup
+
+# Variables
+. $HOME/bin/colr
+SONG_NAME=$( mpc current)
+
+# Run
+	if [[ $(mpc status | grep paused) ]]
+	then
+		popupleft $(echo "%{B#$bg}%{A3:mpc play:}    $SONG_NAME  %{A}%{B-}")
+	elif [ $(mpc current) = ""]
+	then
+		popupleft $(echo "%{B#$bg}    Paused  %{B-}")
+	else
+		popupleft $(echo "%{B#$magenta}%{A3:mpc pause:}    $SONG_NAME  %{A}%{B-}")
+	fi

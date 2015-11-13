@@ -1,0 +1,53 @@
+# openbox
+
+alt + Tab
+	{pkill obbitbar ,\
+	obbitbar & }
+super + shift + e
+	pkill obbitar ; openbox --exit 
+
+# Independent
+	# Media Keys
+F6
+	mpc toggle ; muspop
+super + F6
+	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+ctrl + alt + x
+	mpv $(xsel -b)
+ctrl + F6
+	muspop
+alt + F6
+	{albumart.sh & ,\
+	pkill feh}
+ctrl + alt + x
+	mpv $(xsel -b)
+
+	# Audio
+F2
+	amixer set Master toggle ; volpop
+F3
+	amixer set Master 5%+ ; volpop
+F7
+	amixer set Master 5%- ; volpop
+
+	# Battery
+alt + F7
+	batpop
+
+	# Date / Time
+ctrl + F7
+	datpop
+
+	# Launch
+super + Return
+	urxvt
+super + d
+    j4-dmenu-desktop --dmenu="dmenu -q -i -h 24 -fn '-gohu-gohufont-medium-r-normal--14-*-*-*-*-*-iso10646-1' -nb '#2c2832' -nf '#ffffff' -sb '#ffffff' -sf '#2c2832'" --term="urxvt"
+alt + d
+    dmenu_run -z -h 24 -fn '-gohu-gohufont-medium-r-normal--14-*-*-*-*-*-iso10646-1' -nb '#2c2832'  -nf '#ffffff' -sb '#ffffff' -sf '#2c2832'
+super + e
+	pcmanfm
+super + w
+    qutebrowser
+ctrl + super + shift + alt + l
+	lock.sh

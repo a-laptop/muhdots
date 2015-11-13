@@ -1,0 +1,14 @@
+#!/bin/sh
+setxkbmap -option caps:escape
+xrdb .Xcolours
+xsetroot -name whaddup # Set 'Root' Window.
+xsetroot -cursor_name left_ptr # Name your pet cursor!
+numlockx
+unclutter --fork|-b
+walls.sh &
+sxhkd -f 100 -c $HOME/.config/sxhkd/wmutils &!
+wew | yawee &
+compton -cCG -e .5 &
+while :; do $HOME/bin/popups/batterypopup ; sleep 120; done &
+urxvt &
+exec xwait

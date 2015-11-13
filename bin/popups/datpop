@@ -1,0 +1,10 @@
+#!/bin/bash
+# a date popup
+
+# Variables
+. $HOME/bin/colr
+date=$(date +'%a %d/%m')
+time=$(date +'%H:%M')
+
+# Run
+popupmiddle $(echo "%{B#$bg}  $date  $time %{B-}")

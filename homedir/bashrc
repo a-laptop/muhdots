@@ -1,0 +1,33 @@
+#BASH CONFIG
+
+# ~/.bashrc
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Prompt
+PS1='[\u@\h \W]\$ '
+
+# Vi-mode
+set -o vi
+bind -m vi-insert "\C-l":clear-screen
+
+# Environmental Variables
+export EDITOR="/usr/bin/vim"
+export BROWSER=firefox
+export PAGER="/bin/less"
+export PATH=$PATH:$HOME/bin:$HOME/bin/bar:$HOME/bin/popups:$HOME/bin/wmutils
+export VISUAL=$EDITOR
+
+# Aliases
+alias cd..='cd ..'
+alias cl='clear'
+alias ls='ls --color -F'
+alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
+	# Tmux
+alias tma='tmux a'
+alias tmls='tmux ls'
+alias tmkill='tmux kill-session -t'
+
+# History
+export HISTFILE=$HOME/.history_bash
+export HISTSIZE=1000

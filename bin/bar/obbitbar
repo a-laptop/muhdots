@@ -1,0 +1,135 @@
+#! /bin/zsh
+
+#################
+### Variables ###
+#################
+
+. $HOME/bin/colr
+
+Panel_Height=24
+PANEL_FIFO=/tmp/panel-fifo
+Panel_Font_Family="$panelfnt"
+Icon_Font="$iconfnt"
+
+
+### Shit I Don't Understand ###
+if [ $(pgrep -cx panel) -gt 1 ] ; then
+	printf "%s\n" "The panel is already running." >&2
+	exit 1
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+########################
+### Scripts & N Shit ###
+########################
+
+# Xtitle
+xtitle -sf 'T%s' > "$PANEL_FIFO" &
+
+# Clock
+while true;
+	do 
+		echo 'C' $(date +"%H:%M");
+	sleep 5;
+done > "$PANEL_FIFO" &
+
+# Date
+while true;
+do echo 'D' $(date +'%a %d/%m')
+	sleep 5
+done > $PANEL_FIFO &
+
+# Battery
+while true;
+do
+	BATT_LEVEL=$(acpi -b | grep -o '[[:digit:]]\+%' | sed 's/%//')
+	if [ $BATT_LEVEL -ge 50 ]
+		then
+			echo "B%{B#$green}  $BATT_LEVEL% %{B-}"
+	fi
+
+	if [ $BATT_LEVEL -ge 20 -a $BATT_LEVEL -lt 50 ]
+		then
+			echo "B%{B#$yellow}  $BATT_LEVEL% %{B-}"
+	fi
+
+	if [ $BATT_LEVEL -lt 20 ]
+		then
+			echo "B%{B#$red}  $BATT_LEVEL% %{B-}"
+	fi
+
+
+	sleep 30;
+done > "$PANEL_FIFO" &
+
+# Volume (alsa)
+while true;
+do
+	ALSA_VOLUME=$(amixer get Master | grep 'Mono: Playback' | grep -o '...%' | sed 's/\[//' | sed 's/%//' | sed 's/ //')
+	ALSA_STATE=$(amixer get Master | grep 'Mono: Playback' | grep -o '\[on]')
+
+	if [ $ALSA_STATE ]
+	then
+	if [ $ALSA_VOLUME -ge 70 ]
+	then
+		echo V'' $ALSA_VOLUME%
+	fi
+	if [ $ALSA_VOLUME -gt 0 -a $ALSA_VOLUME -lt 70 ]
+	then
+		echo V'' $ALSA_VOLUME%
+	fi
+	if [ $ALSA_VOLUME -eq 0 ]
+	then
+		echo V'' $ALSA_VOLUME%
+	fi
+	else
+		echo V'' $ALSA_VOLUME%
+	fi
+	sleep 0.1
+done > $PANEL_FIFO &
+
+# WiFi
+while true;
+do
+	WIFI_SSID=$(connmanctl services | awk '{print ($2)}')
+	echo W'' $WIFI_SSID
+	sleep 10
+done > $PANEL_FIFO &
+
+# MPD / Music 
+while true;
+do
+	SONG_NAME=$( mpc current)
+	if [[ $(mpc status | grep paused) ]]
+	then
+		echo "R   $SONG_NAME"
+	elif [ $(mpc current) = ""]
+	then
+		echo "R %{A3:urxvt -e ncmpcpp -c ~/.config/ncmpcpp/config:}   Paused %{A}"
+	else
+		echo "R%{B#$magenta}   $SONG_NAME %{B-}"
+	fi
+
+	sleep 1
+done > $PANEL_FIFO &
+
+# Workspace Number (openbox, 2bwm etc.)
+while true;
+do
+	wkspace=$(expr 1 + $(xprop -root _NET_CURRENT_DESKTOP | sed -e 's/_NET_CURRENT_DESKTOP(CARDINAL) = //'))
+	echo Z$wkspace
+	sleep .1
+done > $PANEL_FIFO &
+
+# Power/Lock
+echo L'' > $PANEL_FIFO &
+
+##################
+### Make it go! ###
+##################
+cat "$PANEL_FIFO" | obbitbar_bar | lemonbar -b -p -g x$Panel_Height -f "$Panel_Font_Family" -f "$Icon_Font" -F "#$purewhite" -B "#$bg" -u 2 | zsh &
+wait

@@ -1,0 +1,29 @@
+#!/bin/bash
+# a volume popup
+
+# Variables
+. $HOME/bin/colr
+ALSA_VOLUME=$(amixer get Master | grep 'Mono: Playback' | grep -o '...%' | sed 's/\[//' | sed 's/%//' | sed 's/ //')
+ALSA_STATE=$(amixer get Master | grep 'Mono: Playback' | grep -o '\[on]')
+
+	# Volume Icon
+	if [ $ALSA_STATE ]
+	then
+	if [ $ALSA_VOLUME -ge 70 ]
+	then
+		volicon=''
+	fi
+	if [ $ALSA_VOLUME -gt 0 -a $ALSA_VOLUME -lt 70 ]
+	then
+		volicon=''
+	fi
+	if [ $ALSA_VOLUME -eq 0 ]
+	then
+		volicon=''
+	fi
+	else
+		volicon=''
+	fi
+
+# Run
+popupright $(echo "%{B#$magenta}  $volicon $ALSA_VOLUME%  %{B-}")

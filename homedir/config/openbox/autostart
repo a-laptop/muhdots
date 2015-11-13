@@ -1,0 +1,6 @@
+#! /bin/sh
+
+sxhkd -c $HOME/.config/sxhkd/openbox &
+walls.sh &
+compton &
+redshift &

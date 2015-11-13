@@ -1,0 +1,45 @@
+#!/bin/sh
+GAP=20
+
+CUR=${2:-$(pfw)}
+CX=$(wattr x $CUR)
+CY=$(wattr y $CUR)
+CW=$(wattr w $CUR)
+CH=$(wattr h $CUR)
+BW=$(wattr b $CUR)
+
+ROOT=$(lsw -r)
+SW=$(wattr w $ROOT)
+SH=$(wattr h $ROOT)
+
+GH=$((SH - 2*GAP))
+GW=$((SW - 2*GAP))
+
+GX=$((SW/2 - W/2))
+GY=$((SH/2 - H/2))
+
+X=0
+Y=0
+
+case $1 in
+    tr) X=$((SW - CW - BW*2)) ;;
+    bl) Y=$((SH - CH - BW*2)) ;;
+    br) X=$((SW - CW - BW*2))
+        Y=$((SH - CH - BW*2)) ;;
+    md) X=$((SW/2 - CW/2 - BW))
+        Y=$((SH/2 - CH/2 - BW));;
+    cnv) X=$((SW/2 - 800/2 - BW))
+        Y=$((SH/2 - 940/2 - BW))
+	CW=800
+	CH=950;;
+    cnh) X=$((SW/2 - 1024/2 - BW))
+        Y=$((SH/2 - 576/2 - BW))
+	CW=1024
+	CH=576;;
+    cnq) X=$((SW/2 - 1024/2 - BW))
+        Y=$((SH/2 - 576/2 - BW))
+	CW=924
+	CH=504;;
+esac
+
+wtp $X $Y $CW $CH $CUR

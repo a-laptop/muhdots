@@ -1,0 +1,5 @@
+#!/bin/sh
+setxkbmap -option caps:escape
+xrdb .Xcolours
+sxhkd -f 100 &!
+exec bspwm

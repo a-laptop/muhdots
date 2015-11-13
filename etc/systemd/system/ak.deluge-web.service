@@ -1,0 +1,11 @@
+[Unit]
+Description=Deluge WebUI
+After=ak.deluged.service
+Requires=ak.deluged.service
+
+[Service]
+User=a
+ExecStart=/usr/bin/deluge-web
+
+[Install]
+WantedBy=multi-user.target

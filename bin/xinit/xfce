@@ -1,0 +1,3 @@
+xrdb .Xfresources
+sxhkd -c ~/.config/sxhkd/nonbspwmsxhkdrc &
+exec startxfce4

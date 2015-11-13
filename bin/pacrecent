@@ -1,0 +1,4 @@
+#!/bin/sh
+# recent packages
+
+expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -20
